@@ -1,0 +1,185 @@
+<!-- Code from d3-graph-gallery.com -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>거래대금 등락률</title>
+  <link href="/css/coin.css" rel="stylesheet" type="text/css">
+  <script src="https://kit.fontawesome.com/1368827cf2.js" crossorigin="anonymous"></script>
+  <script src="/js/index.js"></script>
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+<body>
+  <div class="main">
+      <header>
+          <div class="logo">ShowCoin</div>
+          <div class="categoryList">
+              <div><a href="/">암호화폐</div></a>
+              <div><a href="/coin">거래량 상위</div></a>
+              <div><a href="/search">검색량 상위</div></a>
+              <div><a href="/community">커뮤니티</div></a>
+          </div>
+          <div class="user">
+              <div class="search">
+                  <% if(!userId) { %>
+                  <a onclick="openLogin()"><button class="login">로그인</button></a>
+                  <a onclick="openRegister()"><button class="register">가입하기</button></a>
+                  <% } else { %>
+                      <%=userId%><br> 님 환영합니다. <a href="/user/cookieClear">로그아웃</a>
+                  <% } %>
+                  <input type="search" class="searchForm" />
+                  <button class="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+              </div>
+          </div>
+      </header>
+
+      <section>
+          <h1>24시간 거래대금 Top 25 등락률</h1>
+          <!-- Create a div where the graph will take place -->
+          <div id="my_dataviz"></div>
+      </section>
+
+      <footer>
+
+      </footer>
+  </div>
+  <div class="loginPopUpBackground" id="loginModal">
+      <div class="loginPopUp" id="loginPopUp">
+          <a onclick="closeLogin()"><i class="fa-solid fa-x"></i></a>
+          <div class="login" id="login">
+              <h2 id="login_Header">로그인</h2>
+              <div id="loginExplain" class="loginExplain">ShowCoin이 처음이신가요? <a id="loginExplain_a"
+                      onclick='userRegister()'>계정 생성</a></div>
+              <div>이메일주소</div>
+              <div><input type="text" name="id" id="userId"></div>
+              <div>비밀번호</div>
+              <div><input type="password" name="password" id="userPassword"></div>
+              <div id="userRegisterPassword">
+                  <div>비밀번호 확인</div>
+                  <div><input type="password" name="password" id="userPasswordCheck"></div>
+              </div>
+              <div><button id="loginBtn" onclick="login()">로그인</button></div>
+          </div>
+          <div id="phone">
+              <div id="phoneAuth">
+                  <h2>휴대폰 인증</h2>
+                  <div id="phoneHeader">전화번호를 입력하세요</div>
+                  <div id="phoneHeader2">인증번호를 입력하세요</div>
+                  <div><input type="tel" id="phoneNum" name="phoneNum" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" /></div>
+                  <div id="timer"></div>
+                  <div><input type="text" id="phoneNumAuth" name="phoneAuth"/></div>
+              </div>
+              <div><button onclick="phoneNumSend()" id="submitNum">인증번호 요청</button></div>
+              <div><button onclick="phoneNumAuth()" id="submit">제출</button></div>
+          </div>
+      </div>
+  </div>
+  <div class="registerPopUp">
+  </div>
+  <script>
+    // 그래프 크기와 마진
+    var margin = {top: 10, right: 10, bottom: 10, left: 10},
+      width = 1400 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom;
+    
+    // svg 오브젝트 삽입
+    var svg = d3.select("#my_dataviz")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+    
+    // 데이터 읽기 24시간 거래대금 상위 25개
+    d3.csv('../csv/coin.csv', function(data) {
+    
+      // stratify the data: reformatting for d3.js
+      var root = d3.stratify()
+        .id(function(d) { return d.name; })   // Name of the entity (column name is name in csv)
+        .parentId(function(d) { return d.parent; })   // Name of the parent (column name is parent in csv)
+        (data);
+      root.sum(function(d) { return +d.value })   // Compute the numeric value for each entity
+    
+      // Then d3.treemap computes the position of each element of the hierarchy
+      // The coordinates are added to the root object above
+      // d3 트리맵 만들기
+      d3.treemap()
+        .size([width, height])
+        .padding(4)
+        (root)
+    
+      //console.log(root.leaves())
+      // use this information to add rectangles:
+      svg
+        .selectAll("rect") // 데이터마다 rect 태그 생성
+        .data(root.leaves())
+        .enter()
+        .append("rect")
+          .attr('x', function (d) { return d.x0; })
+          .attr('y', function (d) { return d.y0; })
+          .attr('width', function (d) { return d.x1 - d.x0; })
+          .attr('height', function (d) { return d.y1 - d.y0; })
+          .style("stroke", "#efefef")
+          .style("fill", "#C1FFD7")
+          .attr('id', function (d) { return d.data.name; }); // 고유 id 구분을 위해 코인 id로 지정
+    
+      // and to add the text labels
+      svg
+        .selectAll("text") // 코인 id를 텍스트 태그로 생성
+        .data(root.leaves())
+        .enter()
+        .append("text")
+          .attr("x", function(d){ return d.x0+10})    // +10 to adjust position (more right)
+          .attr("y", function(d){ return d.y0+25})    // +20 to adjust position (lower)
+          .text(function(d){ return d.data.name})
+          .attr("font-size", "20px")
+          .attr("font-weight", "bold")
+          .attr("fill", "black");
+      
+      // and to add the text rate
+      svg
+        .selectAll("rate")
+        .data(root.leaves())
+        .enter()
+        .append("text")
+          .attr("x", function(d){ return d.x0+10})    // +10 to adjust position (more right)
+          .attr("y", function(d){ return d.y0+45})    // +20 to adjust position (lower)
+          .text(function(d){ return d.data.rate + "%"})
+          .attr("font-size", "15px")
+          .attr("font-weight", "bold")
+          .attr("fill", "black")
+          .attr("class", "rate")
+          .attr("id", function(d){ return "rate_" + d.data.name});
+
+      // 가격이 상승 시 초록색 하락 시 빨간색으로 표시
+      for (let i = 0; i < document.querySelectorAll(".rate").length; i++){
+        console.log(document.querySelectorAll(".rate")[i].textContent);
+        console.log(parseFloat(document.querySelectorAll(".rate")[i].textContent));
+  
+        if (parseFloat(document.querySelectorAll(".rate")[i].textContent) > 0){ // 가격 상승 시
+          console.log(document.querySelectorAll(".rate")[i].id.split("_")[1]);
+          document.getElementById(document.querySelectorAll(".rate")[i].id.split("_")[1]).style.fill = "#C1FFD7";
+        }
+        else if (parseFloat(document.querySelectorAll(".rate")[i].textContent) < 0){ // 가격 하락 시
+          document.getElementById(document.querySelectorAll(".rate")[i].id.split("_")[1]).style.fill = "#FFAAA7";
+        }
+        else { // 가격 변동이 없을 시
+          document.getElementById(document.querySelectorAll(".rate")[i].id.split("_")[1]).style.fill = "#EEEEEE";
+        }
+      }
+    })
+  </script>
+</body>
+</html>
+
+
+
+
+
+

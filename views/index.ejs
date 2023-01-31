@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지</title>
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <!-- fontawesome CDN -->
+    <script src="https://kit.fontawesome.com/1368827cf2.js" crossorigin="anonymous"></script>
+    <script src="/js/index.js"></script>
+</head>
+
+<body>
+    <script>
+        const userLoginId = '<%=userId%>';
+    </script>
+    <div class="main">
+        <header>
+            <div class="logo">ShowCoin</div>
+            <div class="categoryList">
+                <div><a href="/">암호화폐</div></a>
+                <div><a href="/coin">거래량 상위</div></a>
+                <div><a href="/search">검색량 상위</div></a>
+                <div><a href="/community">커뮤니티</div></a>
+            </div>
+            <div class="user">
+                <div class="search">
+                    <% if(!userId) {%>
+                        <a onclick="openLogin()"><button class="login">로그인</button></a>
+                        <a onclick="openRegister()"><button class="register">가입하기</button></a>
+                        <% } else { %>
+                            <%=userId%><br> 님 환영합니다. <a href="/user/cookieClear">로그아웃</a>
+                                <% } %>
+                                    <input type="search" class="searchForm" />
+                                    <button class="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+        </header>
+        <section>
+            <div class="youtubeVideoContainer">
+                <% for(let i=0; i < 5; i++){%>
+                    <div>
+                        <iframe src="<%=youtubeList[i].url%>" title="<%=youtubeList[i].title%>" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                        <div class="youtube_title">
+                            <%=youtubeList[i].title%>
+                        </div>
+                        <div class="youtube_subtitle">
+                            <%=youtubeList[i].channelTitle%>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+            <div class="ranking">
+                <h2>시가총액에 의한 최고 100 암호화폐</h2>
+                <div class="rankingChart">
+                    <div class="rankingBox">
+                        <div class="rankingHeader">
+                            거래량 TOP 3
+                        </div>
+                        <% for(let i=0; i < 3 ; i++) {%>
+                            <div class="tradeRanking">
+                                <%=sortTradeCoin[i].market_korean%>
+                                    <%=sortTradeCoin[i].market%>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="rankingBox">
+                        <div class="rankingHeader">
+                            변동률 TOP 3
+                        </div>
+                        <% for(let i=0; i < 3 ; i++) {%>
+                            <div class="changeRanking">
+                                <%=changeRateCoin[i].market_korean%>
+                                    <%=changeRateCoin[i].market%>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="rankingBox">
+                        <div class="rankingHeader">
+                            네이버 검색순위 TOP 3
+                        </div>
+                        <% for(let i=0; i < 3 ; i++) {%>
+                            <div class="searchRanking">
+                                <%=naverFamous[i].coinName%>
+                                    <%=naverFamous[i].coinCode%>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="coinList">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>이름</th>
+                            <th>현재가</th>
+                            <th>변화율</th>
+                            <th>저가</th>
+                            <th>고가</th>
+                            <th>거래량(24시간)</th>
+                            <th>누적 거래량</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coinForm">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <footer>
+        </footer>
+    </div>
+    <div class="loginPopUpBackground" id="loginModal">
+        <div class="loginPopUp" id="loginPopUp">
+            <a onclick="closeLogin()"><i class="fa-solid fa-x"></i></a>
+            <div class="login" id="login">
+                <h2 id="login_Header">로그인</h2>
+                <div id="loginExplain" class="loginExplain">ShowCoin이 처음이신가요? <a id="loginExplain_a"
+                        onclick='userRegister()'>계정 생성</a></div>
+                <div>이메일주소</div>
+                <div><input type="text" name="id" id="userId"></div>
+                <div>비밀번호</div>
+                <div><input type="password" name="password" id="userPassword"></div>
+                <div id="userRegisterPassword">
+                    <div>비밀번호 확인</div>
+                    <div><input type="password" name="password" id="userPasswordCheck"></div>
+                </div>
+                <div><button id="loginBtn" onclick="login()">로그인</button></div>
+            </div>
+            <div id="phone">
+                <div id="phoneAuth">
+                    <h2>휴대폰 인증</h2>
+                    <div id="phoneHeader">전화번호를 입력하세요</div>
+                    <div id="phoneHeader2">인증번호를 입력하세요</div>
+                    <div><input type="tel" id="phoneNum" name="phoneNum" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" /></div>
+                    <div id="timer"></div>
+                    <div><input type="text" id="phoneNumAuth" name="phoneAuth" /></div>
+                </div>
+                <div><button onclick="phoneNumSend()" id="submitNum">인증번호 요청</button></div>
+                <div><button onclick="phoneNumAuth()" id="submit">제출</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="registerPopUp">
+    </div>
+
+</body>
+
+</html>

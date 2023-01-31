@@ -1,0 +1,406 @@
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  height: 100vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-width: 100%;
+  height: 100%;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 70px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0px auto;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  width: 200px;
+  padding-left: 20px;
+}
+
+header .categoryList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 0px;
+          flex: 1 1 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .categoryList div {
+  margin: 0px 10px;
+}
+
+header .user {
+  width: 400px;
+}
+
+header .user .search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .user .searchForm {
+  width: 100px;
+  height: 35px;
+  border-width: 1px;
+  border-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-right-style: none;
+  border-style: none;
+  background-color: #efefef;
+}
+
+header .user .searchBtn {
+  width: 50px;
+  height: 35px;
+  border-width: 1px;
+  border-radius: 10px;
+  border-left-style: none;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background-color: #efefef;
+  border-style: none;
+}
+
+header .user button {
+  width: 80px;
+  height: 35px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+header .user .login {
+  background-color: white;
+  border-style: none;
+}
+
+header .user .register {
+  background-color: #5C6AC4;
+  color: white;
+  border-style: none;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+section {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0px auto;
+}
+
+section .board {
+  margin: 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #efefef;
+  border-radius: 10px;
+  padding: 20px;
+  -webkit-box-shadow: #efefef 0px 8px 32px;
+          box-shadow: #efefef 0px 8px 32px;
+}
+
+section .board .boardTitle {
+  padding-left: 20px;
+  font-size: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+section .board .boardInfo {
+  padding-left: 20px;
+  color: #b7b7b7;
+}
+
+section .board .boardInfo .boardView {
+  padding-left: 10px;
+}
+
+section .board .boardInfo .boardLike {
+  padding-left: 10px;
+}
+
+section .board .Contents {
+  padding-left: 20px;
+  font-size: 20px;
+}
+
+section .board .like {
+  font-size: 30px;
+  color: #FF7171;
+  text-align: center;
+}
+
+section .board .like span {
+  font-size: 30px;
+  color: black;
+}
+
+section .board .Comments {
+  padding-left: 20px;
+}
+
+section .board .Comments form {
+  margin-bottom: 25px;
+}
+
+section .board .Comments form .inputcomment {
+  height: 30px;
+  font-size: 15px;
+  width: 93%;
+}
+
+section .board .Comments form .addcommentbtn {
+  width: 5%;
+  height: 35px;
+  background-color: #EFF8FF;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+section .board .Comments .Comment {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+section .board .Comments .Comment .comment_writer {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+section .board .Comments .Comment .comment_text {
+  font-size: 15px;
+  padding-left: 10px;
+}
+
+section .board .line {
+  width: 100%;
+  height: 0px;
+  border: solid 1px #efefef;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+section .board .updatebtn {
+  background-color: #CAB8FF;
+  border-style: none;
+  border-radius: 5px;
+  width: 70px;
+  height: 25px;
+  margin: 0;
+  display: inline;
+  padding: 5px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+section .board .deletebtn {
+  background-color: #F38BA0;
+  border-style: none;
+  border-radius: 5px;
+  width: 90px;
+  height: 35px;
+  margin: 0;
+  display: inline;
+  padding: 5px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-right: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+section .board .boardlistbtn {
+  background-color: #F7F7E8;
+  border-style: none;
+  border-radius: 5px;
+  width: 70px;
+  height: 25px;
+  margin: 0;
+  display: inline;
+  padding: 5px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+footer {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0px auto;
+}
+
+.loginPopUpBackground {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  visibility: hidden;
+  z-index: 9999;
+  background: rgba(10, 30, 66, 0.4);
+}
+
+.loginPopUpBackground .loginPopUp {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 400px;
+  height: 400px;
+  border-radius: 15px;
+  background-color: white;
+  padding: 10px 30px;
+}
+
+.loginPopUpBackground .loginPopUp #phone {
+  display: none;
+}
+
+.loginPopUpBackground .loginPopUp #phone #timer {
+  display: none;
+}
+
+.loginPopUpBackground .loginPopUp #phone #submit {
+  display: none;
+}
+
+.loginPopUpBackground .loginPopUp #phone #phoneNumAuth {
+  display: none;
+}
+
+.loginPopUpBackground .loginPopUp #phone #phoneHeader2 {
+  display: none;
+}
+
+.loginPopUpBackground .loginPopUp i {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.loginPopUpBackground .loginPopUp .loginExplain {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.loginPopUpBackground .loginPopUp .loginExplain a {
+  color: #5C6AC4;
+}
+
+.loginPopUpBackground .loginPopUp #userRegisterPassword {
+  display: none;
+}
+
+.loginPopUpBackground .loginPopUp div {
+  width: 100%;
+}
+
+.loginPopUpBackground .loginPopUp div input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: #efefef;
+  border-style: solid;
+  padding-left: 10px;
+}
+
+.loginPopUpBackground .loginPopUp div button {
+  width: 100%;
+  height: 45px;
+  background-color: #5C6AC4;
+  border-style: none;
+  border-radius: 8px;
+  color: white;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+/*# sourceMappingURL=boardDetail.css.map */
